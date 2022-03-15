@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.example.laboratorinisnumber2.utils.TextUtils;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
 
     TextView tvResult;
@@ -26,31 +28,47 @@ public class MainActivity extends AppCompatActivity {
         this.tvResult=findViewById(R.id.tvResult);
         this.txtMain = findViewById(R.id.txtMain);
         this.spOptionSelection = findViewById(R.id.spOptionSelection);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.counting_options, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         this.spOptionSelection.setAdapter(adapter);
     }
 
-    public void onBtnCalculateClick(View view) {
-        if(false){
-            //cia gal turetu buti true ?
+    public int onBtnCalculateClick(View view) {
+
+        if(!Objects.equals(this.txtMain.getText().toString(),"")){
+
             if(this.spOptionSelection.getSelectedItem().toString().equalsIgnoreCase("Words")){
-                //TODO:
+
+                int wordsCount;
+                wordsCount = TextUtils.getWordsCount(this.txtMain.getText().toString());
+                this.tvResult.setText(Integer.toString(wordsCount));
+
             }
-            else{
-                int charsCount = TextUtils.getCharsCount(this.txtMain.getText().toString());
+            else if (this.spOptionSelection.getSelectedItem().toString().equalsIgnoreCase("Chars")){
+
+                int charsNoSpaceCount;
+                charsNoSpaceCount = TextUtils.getCharsNoSpaceCount(this.txtMain.getText().toString());
+                String charsCountFormatted = String.valueOf(charsNoSpaceCount);
+                this.tvResult.setText(charsCountFormatted);
+
+            }
+            else if (this.spOptionSelection.getSelectedItem().toString().equalsIgnoreCase("Chars and Space")){
+
+                int charsCount;
+                charsCount = TextUtils.getCharsCount(this.txtMain.getText().toString());
                 String charsCountFormatted = String.valueOf(charsCount);
                 this.tvResult.setText(charsCountFormatted);
 
-  //          String content = this.txtMain.getText().toString();
-  //          int charsCount = content.length();
-  //          String charsCountFormatted = String.valueOf(charsCount);
-  //          this.tvResult.setText(charsCountFormatted);
             }
         }
         else{
-            Toast.makeText(this,"Text is empty", Toast.LENGTH_LONG).show();
+
+            Toast.makeText(this,getString(R.string.NoText), Toast.LENGTH_LONG).show();
+
         }
+        return 0;
     }
+
 }
