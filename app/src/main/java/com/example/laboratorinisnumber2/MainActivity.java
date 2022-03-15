@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 this.tvResult.setText(charsCountFormatted);
 
             }
-            else if (this.spOptionSelection.getSelectedItem().toString().equalsIgnoreCase("Chars and Space")){
+            else if (this.spOptionSelection.getSelectedItem().toString().equalsIgnoreCase("Chars and Spaces")){
 
                 int charsCount;
                 charsCount = TextUtils.getCharsCount(this.txtMain.getText().toString());
